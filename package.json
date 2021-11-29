@@ -16,6 +16,8 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
+    "noty": "^3.2.0-beta-deprecated",
+    "react-router-dom": "^6.0.2",
     "sequelize": "^6.12.0-alpha.1"
   },
   "devDependencies": {
