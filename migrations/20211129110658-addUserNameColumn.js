@@ -6,7 +6,7 @@ module.exports = {
       "Users", // name of Source model
       "Username", // name of the key we're adding
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       }
