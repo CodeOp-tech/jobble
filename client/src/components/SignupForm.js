@@ -15,8 +15,9 @@ export default function SignupForm() {
     const navigate = useNavigate();
 
     const handleChange = (event) => {
-        const {value, name} = event.target;
-        // value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
+        let {value, name} = event.target;
+        value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
+        console.log(value)
         setNewUser((state)=>({...state, [name]: value}));
     }
 
@@ -64,12 +65,12 @@ export default function SignupForm() {
                             <label>Email Adress</label>
                                 <input name="email" type="email" value={newUser.email} onChange={(e)=>handleChange(e)} className="form-control shadow p-3 mb-5 bg-body rounded"/>
                             </div>
-                            <div>
+                            <div className="form-check form-switch">
                             <label>I'm a company</label>
-                                {/* <input name="isAdmin" type="checkbox" value={newUser.isAdmin} checked={newUser.isAdmin} onChange={(e)=>handleChange(e)} className="form-control shadow p-3 mb-5 bg-body rounded"/> */}
+                                <input name="isAdmin" type="checkbox" value={newUser.isAdmin} checked={newUser.isAdmin} onChange={(e)=>handleChange(e)} className="form-check-input shadow mb-5"/> 
                             </div>
                             <div>
-                                <button type="submit" onClick={signup} className="btn btn-primary mt-2">Submit</button>
+                                <button type="submit" onClick={signup} className="btn btn-primary mtcd-2">Submit</button>
                             </div>
                             
                         </div>

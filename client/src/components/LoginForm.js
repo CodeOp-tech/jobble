@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Noty from "noty";
