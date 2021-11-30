@@ -3,16 +3,16 @@ async function JobsMustExist(req, res, next) {
   try {
     const { id } = req.params;
     //find if there is an job with that ID in the DB
-    const results = await models.Job.findByPk(req.params.id);
+    const job = await models.Job.findByPk(id);
       
     //If there isn't
-    if (!results.dataValues) {
+    if (!job) {
       //Return a 404 message
       return res.status(404).send({ message: "job not found" });
     }
 
-    req.job = results
-    console.log(req.job + "req")
+    req.job = job
+    console.log(req.job )
     next();
   } catch (err) {
     res.status(500).send(err);

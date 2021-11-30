@@ -26,21 +26,9 @@ router.post("/", async (req, res) => {
 
 
 // to get one job by id
-router.get("/:id", jobsMustExist, async function (req, res) {
-    const { id } = req.params;
-   const job = await models.Job.findOne({
-      where: {
-        id,
-      },
-    })
+router.get("/:id", jobsMustExist,  function (req, res) {
     
-    // const job = req.job
-    // console.log(job + "hola")
-      .then((job) => res.send(job))
-      .catch((error) => {
-          console.log(error)
-        res.status(500).send(error);
-      });
+    res.send(req.job)
   });
 
 module.exports = router;
