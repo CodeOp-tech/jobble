@@ -5,6 +5,7 @@ import AuthProvider from "./components/AuthProvider";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 
@@ -18,8 +19,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
-
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
      </AuthProvider>
