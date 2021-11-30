@@ -8,9 +8,11 @@ import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 
+
 // defining the routes to navigate to the home/login/register/private dashboard/
 function App() {
   return (
+
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
@@ -23,6 +25,7 @@ function App() {
         </Routes>
       </BrowserRouter>
      </AuthProvider>
+
   );
 }
 
