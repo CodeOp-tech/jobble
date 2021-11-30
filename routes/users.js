@@ -25,6 +25,19 @@ router.get("/jobs", async (req, res) => {
   }
 })
 
+// get all the users that have matched a job
+router.get("/:job_id/matches", async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const job = await models.Job.findByPk(id)
+    const matches = await job.getMatch()
+    res.send(matches)
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
+  }
+})
 
 // get all the jobs of a user
 router.get("/:id/jobs", async (req, res) => {
