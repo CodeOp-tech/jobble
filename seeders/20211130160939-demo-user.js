@@ -10,7 +10,7 @@ module.exports = {
       username: 'Test1',
       password: "Test1",
       email: 'test@test.com',
-      admin: 'false',
+      admin: false,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -21,7 +21,7 @@ module.exports = {
       username: 'Test2',
       password: "Test2",
       email: 'test@test.com',
-      admin: 'false',
+      admin: false,
       createdAt: new Date(),
       updatedAt: new Date()
   },
@@ -32,7 +32,7 @@ module.exports = {
       username: 'mariamora',
       password: "1234",
       email: 'test@test.com',
-      admin: 'true',
+      admin: true,
       createdAt: new Date(),
       updatedAt: new Date()
   },
@@ -43,7 +43,7 @@ module.exports = {
     username: 'VennelaL',
     password: "1234",
     email: 'test@test.com',
-    admin: 'true',
+    admin: true,
     createdAt: new Date(),
     updatedAt: new Date()
 },
@@ -54,7 +54,7 @@ module.exports = {
       username: 'ArianaC',
       password: "1234",
       email: 'test@test.com',
-      admin: 'true',
+      admin: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }
