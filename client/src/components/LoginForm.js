@@ -33,7 +33,7 @@ export default function LoginForm() {
   };
 
   const signiWasOk = () => {
-    navigate("/dashboard");
+    navigate("/user/dashboard");
     new Noty({
       theme: "relax",
       text: `Welcome ${user.username}!`,
