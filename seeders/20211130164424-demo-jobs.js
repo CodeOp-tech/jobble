@@ -2,24 +2,24 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Users', [
+    await queryInterface.bulkInsert('Jobs', [
       {
-      id: '1',
+      id: 1,
       title: 'Full Stack Developer',
       type: 'Developer',
       description: "Full Stack Developer with React.js and Node.js who knows how to use Sequelize",
       experience: '2 years',
       contract: 'full-time',
-      salary: '30.000',
+      salary: 30000,
       company: 'The Coolest job',
       company_description: 'We are a super cool company',
       perks: 'Lovely breakfast and team outings',
-      EmployerId: '',
-      createdAt: new Date(),
-      updatedAt: new Date()
+      EmployerId: 1,
+      createdAt: '2021-12-01 T10:34:09',
+      updatedAt: '2021-12-01 T10:34:09'
     },
   {
-    id: '2',
+    id: 2,
     title: 'Front End Developer',
     type: 'Developer',
     description: "Front End Developer with React.js who knows how to use Sequelize",
@@ -29,12 +29,12 @@ module.exports = {
     company: 'The Coolest job',
     company_description: 'We are a super cool company',
     perks: 'Lovely breakfast and team outings',
-    EmployerId: '',
+    EmployerId: 4,
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    id: '3',
+    id: 3,
     title: 'Back End Developer',
     type: 'Developer',
     description: "Back End Developer with Node.js who knows how to use Sequelize",
@@ -44,12 +44,12 @@ module.exports = {
     company: 'The Coolest job',
     company_description: 'We are a super cool company',
     perks: 'Lovely breakfast and team outings',
-    EmployerId: '',
+    EmployerId: 4,
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    id: '4',
+    id: 4,
       title: 'Receptionist',
       type: 'Administrative',
       description: "Receptionist for our new office in Barcelona",
@@ -59,12 +59,12 @@ module.exports = {
       company: 'Company 1',
       company_description: 'We are a super cool company',
       perks: 'Lovely breakfast and kindergarten tickets',
-      EmployerId: '',
+      EmployerId: 5,
       createdAt: new Date(),
       updatedAt: new Date()
 },
   {
-    id: '5',
+    id: 5,
     title: 'Bank director',
     type: 'Finance',
     description: "Looking for our new director in Barcelona",
@@ -74,13 +74,13 @@ module.exports = {
     company: 'Your Favourite Bank',
     company_description: 'We are a very modern bank',
     perks: 'kindergarten tickets, restaurant tickets, free premium account',
-    EmployerId: '',
+    EmployerId: 5,
     createdAt: new Date(),
     updatedAt: new Date()
     }
 ]);
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Jobs', null, {});
   }
 };
