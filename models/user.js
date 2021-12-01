@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'EmployerId'
       });
       User.belongsToMany(models.Job, { through: "UsersJobs", as: "Match", foreignKey: "UserId" });
+      User.belongsToMany(models.Job, { through: "Favorites", as:"Favorite", foreignKey: "UserId" });
     }
   };
   User.init({
