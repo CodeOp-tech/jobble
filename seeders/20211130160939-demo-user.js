@@ -64,3 +64,5 @@ module.exports = {
     await queryInterface.bulkDelete('Users', null, {});
   }
 };
+
+//Trying to commit
