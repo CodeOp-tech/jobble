@@ -12,9 +12,7 @@ function userShouldBeLoggedIn(req, res, next) {
         jwt.verify(token, supersecret, function (err, decoded) {
             if (err) res.status(401).send({ message: err.message });
             else {
-
-                req.user_id = decoded.user_id;
-                console.log(req.user_id);
+                req.user_id = decoded.userId;
                 next();
             }
         });

@@ -2,39 +2,63 @@ import React, { useState, useEffect } from 'react'
 import JobOffer from './JobOffer'
 
 export default function Dashboard() {
-    const [jobsOffers, setJobsOffers] = useState([])
     const [currentJob, setCurrentJob] = useState({})
 
     useEffect(() => {
-        getJobsOffers()
+        getJobOffer()
     }, [])
 
-    const getJobsOffers = async () => {
+
+    const getJobOffer = async () => {
         try {
-            const response = await fetch("/jobs")
-            const jobs = await response.json()
-            setJobsOffers(jobs)
-            return jobs
+            const response = await fetch("/jobs/random")
+            const job = await response.json()
+            setCurrentJob(job)
         }
         catch (error) {
             console.log(error)
         }
     };
 
-    const getCurrentJob = () => {
-        let index;
-        index = Math.floor(Math.random() * jobsOffers.length)
-        let currentJob = jobsOffers[index]
-        setCurrentJob(currentJob)
-    }
+    const matchJobOffer = async (status) => {
+        try {
+            const response = await fetch("/matches", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                    JobId: currentJob[0].id,
+                    state: status,
+                }),
+            })
+            const job = await response.json()
+            console.log(job)
+            setCurrentJob(job)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
 
     const handleClickAcceptButton = () => {
-        getCurrentJob()
+        const status = "accepted"
+        matchJobOffer(status)
+        getJobOffer()
 
     }
 
     const handleClickRejectButton = () => {
-        getCurrentJob()
+        const status = "rejected"
+        matchJobOffer(status)
+        getJobOffer()
+
+    }
+
+    const handleClickSnoozetButton = () => {
+        getJobOffer()
 
     }
 
@@ -42,12 +66,13 @@ export default function Dashboard() {
 
     return (
         <div>
-            {jobsOffers &&
+            {currentJob &&
                 <div>
                     <h2>Find a Job</h2>
                     <div>
-                        <JobOffer JobOffer={currentJob} />
+                        <JobOffer JobOffer={currentJob[0]} />
                         <button onClick={handleClickRejectButton}>Reject</button>
+                        <button onClick={handleClickSnoozetButton}>Snooze</button>
                         <button onClick={handleClickAcceptButton}>Accept</button>
                     </div>
                 </div>

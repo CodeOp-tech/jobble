@@ -25,20 +25,6 @@ router.get("/jobs", async (req, res) => {
   }
 })
 
-// get all the users that have matched a job
-router.get("/:job_id/matches", async (req, res) => {
-  try {
-    const { id } = req.params
-
-    const job = await models.Job.findByPk(id)
-    const matches = await job.getMatch()
-    res.send(matches)
-  } catch (error) {
-    console.log(error)
-    res.status(500).send(error);
-  }
-})
-
 // get all the jobs of a user
 router.get("/:id/jobs", async (req, res) => {
   try {
@@ -89,16 +75,30 @@ router.post("/", async (req, res) => {
 // })
 
 // post a job of a specific employer
-router.post("/:id/job_offers", async (req, res) => {
+// router.post("/:id/job_offers", async (req, res) => {
+//   try {
+//     const user = await models.User.findOne({
+//       where: {
+//         id: req.params.id,
+//       }
+//     });
+//     const job = await user.createJob(req.body)
+//     res.send(job);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// })
+
+// get all the job matches of a specific user
+router.get("/:user_id/matches", async (req, res) => {
   try {
-    const user = await models.User.findOne({
-      where: {
-        id: req.params.id,
-      }
-    });
-    const job = await user.createJob(req.body)
-    res.send(job);
+    const { user_id } = req.params
+
+    const user = await models.User.findByPk(user_id)
+    const matches = await user.getMatch()
+    res.send(matches)
   } catch (error) {
+    console.log(error)
     res.status(500).send(error);
   }
 })

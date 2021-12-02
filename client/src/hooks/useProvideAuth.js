@@ -9,7 +9,6 @@ function useProvideAuth() {
   const signin = async (user, cb = () => { }, onError = () => { }) => {
     try {
       const { data } = await axios.post("/authentication/login", user);
-
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
       // an open door so we can do anything after logging in

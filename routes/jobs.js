@@ -17,9 +17,11 @@ router.get("/", async (req, res) => {
 })
 
 // get a random job
-router.get("/random", async (req, res) => {
+router.get("/random", userShouldBeLoggedIn, async (req, res) => {
     try {
         const jobs = await models.Job.findAll({
+            include: models.Job.Match,
+            // attributes: { exclude: { ["state"]: "accepted" } },
             order: Sequelize.literal('rand()'),
             limit: 1
         });
@@ -31,14 +33,43 @@ router.get("/random", async (req, res) => {
 })
 
 // post a job
-// router.post("/", userShouldBeLoggedIn, async (req, res) => {
-//     try {
-//         const job = await models.Job.create(req.body);
-//         res.send(job);
-//     } catch (error) {
-//         res.status(500).send(error);
-//     }
-// })
+router.post("/", userShouldBeLoggedIn, async (req, res) => {
+    try {
+        const user = await models.User.findOne({
+            where: {
+                id: req.user_id,
+            }
+        });
+        const job = await user.createJob(req.body);
+        res.send(job);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
+
+// delete one job by id
+router.delete("/:id", [jobsMustExist, userShouldBeLoggedIn], async function (req, res) {
+    try {
+        const job = req.job
+        const match = await models.UsersJobs.findOne({
+            where: {
+                JobId: job.dataValues.id,
+                UserId: req.user_id
+            }
+        })
+        if (match) {
+            await match.destroy()
+        }
+        await job.destroy()
+
+        res.send(job)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+
+});
 
 
 // to get one job by id
@@ -46,5 +77,21 @@ router.get("/:id", jobsMustExist, function (req, res) {
 
     res.send(req.job)
 });
+
+
+// get all the user matches of a specific job
+router.get("/:job_id/matches", async (req, res) => {
+    try {
+        const { job_id } = req.params
+
+        const job = await models.Job.findByPk(job_id)
+        console.log(job)
+        const matches = await job.getMatch()
+        res.send(matches)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+})
 
 module.exports = router;
