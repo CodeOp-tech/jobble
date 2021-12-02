@@ -91,19 +91,19 @@ router.post("/", async (req, res) => {
 // })
 
 // post a job of a specific employer
-router.post("/:id/job_offers", [userShouldBeLoggedIn, ShouldBeAdmin ], async (req, res) => {
-  try {
-    const user = await models.User.findOne({
-      where: {
-        id: req.params.id,
-      }
-    });
-    const job = await user.createJob(req.body)
-    res.send(job);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-})
+// router.post("/:id/job_offers", [userShouldBeLoggedIn, ShouldBeAdmin ], async (req, res) => {
+//   try {
+//     const user = await models.User.findOne({
+//       where: {
+//         id: req.params.id,
+//       }
+//     });
+//     const job = await user.createJob(req.body)
+//     res.send(job);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// })
 
 
 
