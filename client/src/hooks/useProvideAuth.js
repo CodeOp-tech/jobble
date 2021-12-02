@@ -6,10 +6,9 @@ import axios from "axios";
 function useProvideAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-  const signin = async (user, cb = () => {}, onError = () => {}) => {
+  const signin = async (user, cb = () => { }, onError = () => { }) => {
     try {
-      const { data } = await axios.post("/users/login", user);
-
+      const { data } = await axios.post("/authentication/login", user);
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
       // an open door so we can do anything after logging in
@@ -20,7 +19,7 @@ function useProvideAuth() {
     }
   };
 
-  const signout = (cb = () => {}) => {
+  const signout = (cb = () => { }) => {
     localStorage.clear("token");
     setIsLoggedIn(null);
     cb();
