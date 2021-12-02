@@ -120,6 +120,8 @@ router.get("/:user_id/matches", async (req, res) => {
   }
 })
 
+router.delete("/:id")
+
 
 
 
