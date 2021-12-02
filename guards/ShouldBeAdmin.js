@@ -2,7 +2,7 @@ var models = require("../models");
 
 async function ShouldBeAdmin(req, res, next) {
     try {
-      if (req.user.admin === false) {
+      if (!req.user.admin) {
         //Return a 403 message
         return res.status(403).send({ message: "user not Authorized" });
       }
