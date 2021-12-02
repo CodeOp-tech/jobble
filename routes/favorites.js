@@ -4,11 +4,10 @@ var models = require("../models");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 const ShouldBeAdmin = require("../guards/ShouldBeAdmin");
 
-router.get("/:UserId", userShouldBeLoggedIn, async (req, res) => {
-  const { UserId } = req.params;
+router.get("/profile", userShouldBeLoggedIn, async (req, res) => {
+  const { JobId } = req.body;
   try {
-    const user = await models.user.findByPk(UserId);
-    const favorites = await req.user.getFavorite({ UserId });
+    const favorites = await req.user.getFavorite({ JobId });
     res.send(favorites);
   } catch (error) {
     console.log(error);
@@ -21,7 +20,7 @@ router.post("/profile", userShouldBeLoggedIn, async (req, res) => {
 
   try {
     console.log("here");
-    const match = await req.user.addFavorite( JobId );
+    const match = await req.user.addFavorite(JobId);
     console.log("here again");
     res.send(match);
   } catch (error) {
@@ -30,29 +29,19 @@ router.post("/profile", userShouldBeLoggedIn, async (req, res) => {
   }
 });
 
-router.delete(
-  "/:JobId",
-  [userShouldBeLoggedIn, ShouldBeAdmin],
-  async (req, res) => {
-    try {
-      const job = req.job;
+//Delete a favorite
+router.delete("/:JobId", userShouldBeLoggedIn, async (req, res) => {
+  const { JobId } = req.params;
 
-      await req.user.destroyFavorite();
+  try {
+    // const job = req.job;
+    const favorites = await req.user.removeFavorite(JobId);
 
-      res.send(job);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
-    }
-
-    //     res.status(200).send("Successfuly deleted post")
-    // } catch (err) {
-    //     console.log(err)
-    //     res.status(500).send({
-    //         error: "There was an error deleting this post"
-    //     })
-    // }
+    res.send({ message: "job was deleted" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
   }
-);
+});
 
 module.exports = router;
