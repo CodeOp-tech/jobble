@@ -1,4 +1,6 @@
 var express = require('express');
+const userShouldBeLoggedIn = require('../guards/userShouldBeLoggedIn');
+const ShouldBeAdmin = require('../guards/ShouldBeAdmin');
 var router = express.Router();
 
 var models = require("../models")
@@ -14,7 +16,7 @@ router.get("/", async (req, res) => {
 })
 
 // get all the users and jobs of each user
-router.get("/jobs", async (req, res) => {
+router.get("/jobs", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
   try {
     const users = await models.User.findAll({
       include: models.Job,
@@ -25,8 +27,22 @@ router.get("/jobs", async (req, res) => {
   }
 })
 
+// get all the users that have matched a job
+router.get("/:job_id/matches", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const job = await models.Job.findByPk(id)
+    const matches = await job.getMatch()
+    res.send(matches)
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
+  }
+})
+
 // get all the jobs of a user
-router.get("/:id/jobs", async (req, res) => {
+router.get("/:id/jobs", userShouldBeLoggedIn, async (req, res) => {
   try {
     const user = await models.User.findOne({
       where: {
@@ -75,7 +91,8 @@ router.post("/", async (req, res) => {
 // })
 
 // post a job of a specific employer
-// router.post("/:id/job_offers", async (req, res) => {
+
+// router.post("/:id/job_offers", [userShouldBeLoggedIn, ShouldBeAdmin ], async (req, res) => {
 //   try {
 //     const user = await models.User.findOne({
 //       where: {
@@ -102,6 +119,7 @@ router.get("/:user_id/matches", async (req, res) => {
     res.status(500).send(error);
   }
 })
+
 
 
 

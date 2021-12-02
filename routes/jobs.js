@@ -1,20 +1,21 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var jobsMustExist = require("../guards/JobsMustExist");
-const userShouldBeLoggedIn = require('../guards/userShouldBeLoggedIn');
-const { Sequelize } = require('sequelize');
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+const ShouldBeAdmin = require("../guards/ShouldBeAdmin");
 
-var models = require("../models")
+
+var models = require("../models");
 
 // get all the jobs
 router.get("/", async (req, res) => {
-    try {
-        const jobs = await models.Job.findAll();
-        res.send(jobs);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-})
+  try {
+    const jobs = await models.Job.findAll();
+    res.send(jobs);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 // get a random job
 router.get("/random", userShouldBeLoggedIn, async (req, res) => {
@@ -33,19 +34,30 @@ router.get("/random", userShouldBeLoggedIn, async (req, res) => {
 })
 
 // post a job
-router.post("/", userShouldBeLoggedIn, async (req, res) => {
-    try {
-        const user = await models.User.findOne({
-            where: {
-                id: req.user_id,
-            }
-        });
-        const job = await user.createJob(req.body);
-        res.send(job);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-})
+
+// router.post("/", userShouldBeLoggedIn, async (req, res) => {
+//     try {
+//         const user = await models.User.findOne({
+//             where: {
+//                 id: req.user_id,
+//             }
+//         });
+//         const job = await user.createJob(req.body);
+//         res.send(job);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// })
+
+
+router.post("/", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
+  try {
+    const job = await req.user.createJob(req.body);
+    res.send(job);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 
 // delete one job by id
@@ -74,7 +86,6 @@ router.delete("/:id", [jobsMustExist, userShouldBeLoggedIn], async function (req
 
 // to get one job by id
 router.get("/:id", jobsMustExist, function (req, res) {
-
     res.send(req.job)
 });
 
@@ -93,5 +104,6 @@ router.get("/:job_id/matches", async (req, res) => {
         res.status(500).send(error);
     }
 })
+
 
 module.exports = router;
