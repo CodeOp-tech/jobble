@@ -22,10 +22,10 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/user/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
-     </AuthProvider>
+    </AuthProvider>
 
   );
 }

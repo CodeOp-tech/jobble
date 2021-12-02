@@ -10,6 +10,7 @@ function userShouldBeLoggedIn(req, res, next) {
   if (!token) {
     res.status(401).send({ message: "Please provide a token" });
   } else {
+    
     //verify the token
     jwt.verify(token, supersecret, async function (err, decoded) {
       if (err) res.status(401).send({ message: err.message });
@@ -30,3 +31,4 @@ function userShouldBeLoggedIn(req, res, next) {
   }
 }
 module.exports = userShouldBeLoggedIn;
+

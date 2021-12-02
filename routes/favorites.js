@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../models");
+const userShouldBeLoggedIn = require('../guards/userShouldBeLoggedIn');
+const ShouldBeAdmin = require('../guards/ShouldBeAdmin');
 
-router.get("/:User_id", async (req, res) => {
+
+router.get("/:UserId", userShouldBeLoggedIn, async (req, res) => {
   try {
-    const { User_id } = req.params
+    const { UserId } = req.params
 
-    const user = await models.User.findByPk(User_id)
-    const favorites = await user.getFavorite()
-    res.send(favorites)
+    const user = await models.user.findByPk(UserId)
+    const favorites = await req.user.getFavorite( { UserId } );
+     res.send(favorites)
   } catch (error) {
     console.log(error)
     res.status(500).send(error);
@@ -17,12 +20,12 @@ router.get("/:User_id", async (req, res) => {
 
   
 
-  router.post("/profile", async (req, res) => {
-    const { JobId, UserId } = req.body
+  router.post("/profile", userShouldBeLoggedIn, async (req, res) => {
+    const { UserId, JobId } = req.body
 
     try {
         const user = await models.User.findByPk(UserId)
-        const match = await user.addFavorite(JobId)
+        const match = await user.createFavorite( { UserId, JobId } );
         res.send(match);
         console.log("user", user);
     } catch (error) {
@@ -33,7 +36,7 @@ router.get("/:User_id", async (req, res) => {
 
 
 
-router.delete('/:JobId', async (req, res) => {
+router.delete('/:JobId', [userShouldBeLoggedIn, ShouldBeAdmin ], async (req, res) => {
   const { JobId } = req.params
   const user = await models.User.findByPk(UserId)
   const favorites = await user.getFavorite()
