@@ -99,6 +99,14 @@ function NavBar() {
           </li>
           <li className="nav-item">
             {auth.isLoggedIn && (
+              <Link to="/user/profile" className="nav-link">
+                Profile
+              </Link>
+            )}
+          </li>
+
+          <li className="nav-item">
+            {auth.isLoggedIn && (
               <button onClick={logout} className="nav-link btn btn-primary">
                 Logout
               </button>

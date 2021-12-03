@@ -3,7 +3,8 @@ const userShouldBeLoggedIn = require('../guards/userShouldBeLoggedIn');
 const ShouldBeAdmin = require('../guards/ShouldBeAdmin');
 var router = express.Router();
 
-var models = require("../models")
+var models = require("../models");
+const usersjobs = require('../models/usersjobs');
 
 // get all users
 router.get("/", async (req, res) => {
@@ -59,7 +60,8 @@ router.get("/:id/jobs", userShouldBeLoggedIn, async (req, res) => {
 // get user by id
 router.get("/:id", async (req, res) => {
   try {
-    const user = await models.User.findByPk(req.params.id);
+    let options = {include: usersjobs}
+    const user = await models.User.findByPk(req.params.id, options);
     res.send(user);
   } catch (error) {
     res.status(500).send(error)

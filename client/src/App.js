@@ -22,6 +22,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
           <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:id" element={<Profile />} />
           <Route path="/user/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
