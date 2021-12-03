@@ -70,18 +70,18 @@ router.post("/", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
 
 
 // delete one job by id
-router.delete("/:id", [jobsMustExist, userShouldBeLoggedIn], async function (req, res) {
+router.delete("/:id", [jobsMustExist, userShouldBeLoggedIn, ShouldBeAdmin], async function (req, res) {
     try {
         const job = req.job
-        const match = await models.UsersJobs.findOne({
-            where: {
-                JobId: job.dataValues.id,
-                UserId: req.user_id
-            }
-        })
-        if (match) {
-            await match.destroy()
-        }
+        // const match = await models.UsersJobs.findOne({
+        //     where: {
+        //         JobId: job.dataValues.id,
+        //         UserId: req.user_id
+        //     }
+        // })
+        // if (match) {
+        //     await match.destroy()
+        // }
         await job.destroy()
 
         res.send(job)
