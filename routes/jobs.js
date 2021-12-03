@@ -3,28 +3,37 @@ var router = express.Router();
 var jobsMustExist = require("../guards/JobsMustExist");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 const ShouldBeAdmin = require("../guards/ShouldBeAdmin");
-
-
+const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 var models = require("../models");
+
+
 
 // get all the jobs
 router.get("/", async (req, res) => {
-  try {
-    const jobs = await models.Job.findAll();
-    res.send(jobs);
-  } catch (error) {
-    res.status(500).send(error);
-  }
+    try {
+        const jobs = await models.Job.findAll({
+            // testing
+            // where: {
+            //     title: { [Op.ne]: 'Maria' }
+            // }
+
+        });
+        res.send(jobs);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
 });
 
 // get a random job
 router.get("/random", userShouldBeLoggedIn, async (req, res) => {
     try {
+        const id = req.user.id
         const jobs = await models.Job.findAll({
-            include: models.Job.Match,
-            // attributes: { exclude: { ["state"]: "accepted" } },
+            include: "Match",
             order: Sequelize.literal('rand()'),
             limit: 1
+
         });
         res.send(jobs);
     } catch (error) {
@@ -51,12 +60,12 @@ router.get("/random", userShouldBeLoggedIn, async (req, res) => {
 
 
 router.post("/", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
-  try {
-    const job = await req.user.createJob(req.body);
-    res.send(job);
-  } catch (error) {
-    res.status(500).send(error);
-  }
+    try {
+        const job = await req.user.createJob(req.body);
+        res.send(job);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 
@@ -96,7 +105,6 @@ router.get("/:job_id/matches", async (req, res) => {
         const { job_id } = req.params
 
         const job = await models.Job.findByPk(job_id)
-        console.log(job)
         const matches = await job.getMatch()
         res.send(matches)
     } catch (error) {
