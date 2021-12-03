@@ -35,11 +35,17 @@ function NavBar() {
                 </Link>
               )}
 
-              {auth.isLoggedIn && (
+              {auth.isLoggedIn &&  (
                 <Link to="/user/dashboard" className="nav-link">
                   Dashboard
                 </Link>
               )}
+
+                {auth.isLoggedIn && (
+                <Link to="/user/profile" className="nav-link">
+                  Profile
+                </Link>
+                )}
 
               {auth.isLoggedIn && (
                 <button onClick={logout} className="nav-link btn btn-primary">
