@@ -7,7 +7,7 @@ export default function DispFavorites() {
     const getFavorites = async () => {
       
         //Get data from DB table
-          await fetch("/favourites")
+          await fetch("/favorites")
              .then(response => response.json())
              .then(jobs =>
                // Set favorites
@@ -15,6 +15,7 @@ export default function DispFavorites() {
               )
              .catch(error => {
                console.log(error);
+               
               });
          };
 
@@ -22,9 +23,9 @@ export default function DispFavorites() {
             getFavorites()
             }, [])
 
-        //Displaying LogInUser Favorites data
+        // Displaying LogInUser Favorites data
         return (
-            <div>
+            <div className="">
                 {myfavorites.map((jobs) =>
 
                 <div>                       
