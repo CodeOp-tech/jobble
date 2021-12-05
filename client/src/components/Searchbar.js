@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 
+
 const Searchbar = ({ filtering }) => {
   const [userInput, setUserInput] = useState("");
   const [filtered, setFiltered] = useState([]);
 
   //Call the jobs
 
-  function filterPlates(event) {
+  function filterJobs(event) {
     event.preventDefault();
-    fetch(`/offers?name=${userInput}`)
+    fetch(`/jobs?name=${userInput}`)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
@@ -38,7 +39,7 @@ const Searchbar = ({ filtering }) => {
           value={userInput}
           onChange={(event) => handleChange(event)}
         />
-        <button className="col-2 btn btn-primary" type="button" onClick={(event) => filterPlates(event)}>
+        <button className="col-2 btn btn-primary" type="button" onClick={(event) => filterJobs(event)}>
           Search
         </button>
         </div>
