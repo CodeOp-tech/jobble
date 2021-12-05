@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+
 export default function JobOffer({  }) {
     let {id} = useParams();
 
@@ -24,14 +25,20 @@ export default function JobOffer({  }) {
 
     return (
         <div>
-            <h3>
-                Title: {jobOffer && jobOffer.title}
-            </h3>
-            <div>Type:{jobOffer && jobOffer.type}</div>
-            <div>Description{jobOffer && jobOffer.description}</div>
-            <div>Experience: {jobOffer && jobOffer.experience}</div>
-            <div>Contract: {jobOffer && jobOffer.contract}</div>
-            <div>Salary:{jobOffer && jobOffer.salary}</div>
+           
+                <div className="card">
+                <h3>
+                    Title: {jobOffer && jobOffer.title}
+                </h3>
+                <div>Company{jobOffer && jobOffer.company}</div>
+                <div>Company Description{jobOffer && jobOffer.company_description}</div>
+                <div>Type:{jobOffer && jobOffer.type}</div>
+                <div>Description{jobOffer && jobOffer.description}</div>
+                <div>Experience: {jobOffer && jobOffer.experience}</div>
+                <div>Contract: {jobOffer && jobOffer.contract}</div>
+                <div>Salary:{jobOffer && jobOffer.salary}</div>
+                <div>Perks{jobOffer && jobOffer.perks}</div>
+                </div>
         </div>
     )
 }

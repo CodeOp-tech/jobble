@@ -10,6 +10,7 @@ var models = require("../models");
 
 // get all the jobs
 router.get("/", async (req, res) => {
+  console.log("I'm here")
   const { title } = req.query;
   let jobs = "";
   try {
