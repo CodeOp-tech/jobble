@@ -3,26 +3,36 @@ var router = express.Router();
 var jobsMustExist = require("../guards/JobsMustExist");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 const ShouldBeAdmin = require("../guards/ShouldBeAdmin");
+
+
 const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 var models = require("../models");
 
 
 
+
 // get all the jobs
 router.get("/", async (req, res) => {
-    try {
-        const jobs = await models.Job.findAll({
-            // testing
-            // where: {
-            //     title: { [Op.ne]: 'Maria' }
-            // }
 
-        });
-        res.send(jobs);
-    } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+  const { title } = req.query;
+  let jobs = "";
+  try {
+    if (title) {
+     jobs = await models.Job.findAll({
+      where: {
+        title: {
+          [Op.like]: `%${title}%`
+        }
+      }
+      });  
+    }else {
+      jobs = await models.Job.findAll()
     }
+    res.send(jobs);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+
 });
 
 // get a random job

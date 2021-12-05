@@ -18,7 +18,9 @@ export default function JobOffer({  }) {
             });
         }, []);
 
-
+        if (!jobOffer) {
+            return <h2>Loading...</h2>
+        }
 
     return (
         <div>

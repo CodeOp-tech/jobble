@@ -15,8 +15,8 @@ module.exports = {
       company_description: 'We are a super cool company',
       perks: 'Lovely breakfast and team outings',
       EmployerId: 1,
-      createdAt: '2021-12-01 T10:34:09',
-      updatedAt: '2021-12-01 T10:34:09'
+      createdAt: '2021-12-01 10:34:09',
+      updatedAt: '2021-12-01 10:34:09'
     },
   {
     id: 2,
@@ -30,8 +30,8 @@ module.exports = {
     company_description: 'We are a super cool company',
     perks: 'Lovely breakfast and team outings',
     EmployerId: 4,
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: '2021-12-01 10:34:09',
+    updatedAt: '2021-12-01 10:34:09'
   },
   {
     id: 3,
@@ -45,8 +45,8 @@ module.exports = {
     company_description: 'We are a super cool company',
     perks: 'Lovely breakfast and team outings',
     EmployerId: 4,
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: '2021-12-01 10:34:09',
+    updatedAt: '2021-12-01 10:34:09'
   },
   {
     id: 4,
@@ -60,8 +60,8 @@ module.exports = {
       company_description: 'We are a super cool company',
       perks: 'Lovely breakfast and kindergarten tickets',
       EmployerId: 5,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: '2021-12-01 10:34:09',
+      updatedAt: '2021-12-01 10:34:09'
 },
   {
     id: 5,
@@ -71,12 +71,12 @@ module.exports = {
     experience: '15 years',
     contract: 'full-time',
     salary: '90.000',
-    company: 'Your Favourite Bank',
+    company: 'Your Favorite Bank',
     company_description: 'We are a very modern bank',
     perks: 'kindergarten tickets, restaurant tickets, free premium account',
     EmployerId: 5,
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: '2021-12-01 10:34:09',
+    updatedAt: '2021-12-01 10:34:09'
     }
 ]);
   },
