@@ -26,14 +26,14 @@ export default function LoginForm() {
   const login = async (e) => {
     e.preventDefault()
     try {
-      await auth.signin(user, signiWasOk, signiWasNotOk);
+      await auth.signin(user, signinWasOk, signinWasNotOk);
     } catch (err) {
       // setError(err);
     }
   };
 
-  const signiWasOk = () => {
-    navigate("/dashboard");
+  const signinWasOk = () => {
+    navigate("/user/dashboard");
     new Noty({
       theme: "relax",
       text: `Welcome ${user.username}!`,
@@ -41,7 +41,7 @@ export default function LoginForm() {
     }).show();
   };
 
-  const signiWasNotOk = (message) => {
+  const signinWasNotOk = (message) => {
     new Noty({
       theme: "relax",
       text: message,
