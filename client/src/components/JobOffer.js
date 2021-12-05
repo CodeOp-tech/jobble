@@ -30,14 +30,14 @@ export default function JobOffer({  }) {
                 <h3>
                     Title: {jobOffer && jobOffer.title}
                 </h3>
-                <div>Company{jobOffer && jobOffer.company}</div>
-                <div>Company Description{jobOffer && jobOffer.company_description}</div>
+                <div>Company:{jobOffer && jobOffer.company}</div>
+                <div>Company Description:{jobOffer && jobOffer.company_description}</div>
                 <div>Type:{jobOffer && jobOffer.type}</div>
-                <div>Description{jobOffer && jobOffer.description}</div>
+                <div>Description:{jobOffer && jobOffer.description}</div>
                 <div>Experience: {jobOffer && jobOffer.experience}</div>
                 <div>Contract: {jobOffer && jobOffer.contract}</div>
                 <div>Salary:{jobOffer && jobOffer.salary}</div>
-                <div>Perks{jobOffer && jobOffer.perks}</div>
+                <div>Perks:{jobOffer && jobOffer.perks}</div>
                 </div>
         </div>
     )
