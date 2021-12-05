@@ -7,7 +7,9 @@ export default function DispFavorites() {
     const getFavorites = async () => {
       
         //Get data from DB table
-          await fetch("/favorites")
+          await fetch("/favorites/profile", {
+            headers: { authorization: "Bearer " + localStorage.getItem("token") }
+          })
              .then(response => response.json())
              .then(jobs =>
                // Set favorites
@@ -20,26 +22,36 @@ export default function DispFavorites() {
          };
 
          useEffect(() => {
+
+
             getFavorites()
             }, [])
 
         // Displaying LogInUser Favorites data
         return (
-            <div className="">
-                {myfavorites.map((jobs) =>
+            <div>              
+              {myfavorites && myfavorites.map(jobs =>  {
 
-                <div>                       
-                    {jobs.title}
-                    {jobs.type}
-                    {jobs.description}
-                    {jobs.experience}
-                    {jobs.contract}
-                    {jobs.salary}
-                    {jobs.company}
-                    {jobs.company_description}
-                </div>
+                  return (
+                  
+                    <div>
 
-                )}    
-            </div>
+                  <div> {jobs.title}  </div>  
+                  <div>  {jobs.type} </div>
+                  <div> {jobs.description} </div>
+                  <div> {jobs.experience} </div>
+                  <div> {jobs.contract} </div>
+                  <div> {jobs.salary} </div>
+                  <div> {jobs.company} </div>
+                  <div> {jobs.company_description} </div>
+                    
+                  </div>
+
+                  )
+                 }  
+                          
+                 )} 
+            </div>              
+            
         )
 }
