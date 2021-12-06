@@ -8,7 +8,7 @@ export default function Home(props) {
     <div>
       <div className="container">
         <div className="mb-3 p-2">
-          <Searchbar filtering={props.Searchbar} />
+          <Searchbar    filtering={jobs => props.setJobsCb(jobs)} />
         </div>
       </div>
       <div className="container">

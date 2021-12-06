@@ -131,7 +131,26 @@ router.get("/:job_id/matches", async (req, res) => {
         console.log(error)
         res.status(500).send(error);
     }
-})
+});
+
+//Delete a jib by id
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await models.Job.destroy({
+      where: {
+        id,
+      },
+    });
+
+    res.send("Job deleted successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+});
+
 
 
 module.exports = router;
