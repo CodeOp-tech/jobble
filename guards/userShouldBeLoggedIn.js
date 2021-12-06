@@ -4,13 +4,10 @@ const supersecret = process.env.SUPER_SECRET;
 const models = require("../models");
 
 function userShouldBeLoggedIn(req, res, next) {
-  // console.log("this is the header", req.headers);
   const token = req.headers["authorization"]?.replace(/^Bearer\s/, "");
-  // console.log("this is the secret shhh", token, supersecret);
   if (!token) {
     res.status(401).send({ message: "Please provide a token" });
   } else {
-    //verify the token
     jwt.verify(token, supersecret, async function (err, decoded) {
       if (err) res.status(401).send({ message: err.message });
       else {
@@ -20,8 +17,6 @@ function userShouldBeLoggedIn(req, res, next) {
           },
         });
         if (!user) return res.status(401).send({ message: "user not found" });
-        //everything is awesome
-        console.log(user);
         req.user = user;
         next();
       }

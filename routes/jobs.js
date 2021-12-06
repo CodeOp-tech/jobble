@@ -3,14 +3,17 @@ var router = express.Router();
 var jobsMustExist = require("../guards/JobsMustExist");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 const ShouldBeAdmin = require("../guards/ShouldBeAdmin");
-const {Op} = require("sequelize")
 
 
+const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 var models = require("../models");
+
+
+
 
 // get all the jobs
 router.get("/", async (req, res) => {
-  console.log("I'm here")
+
   const { title } = req.query;
   let jobs = "";
   try {
@@ -29,16 +32,18 @@ router.get("/", async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
+
 });
 
 // get a random job
 router.get("/random", userShouldBeLoggedIn, async (req, res) => {
     try {
+        const id = req.user.id
         const jobs = await models.Job.findAll({
-            include: models.Job.Match,
-            // attributes: { exclude: { ["state"]: "accepted" } },
+            include: "Match",
             order: Sequelize.literal('rand()'),
             limit: 1
+
         });
         res.send(jobs);
     } catch (error) {
@@ -65,12 +70,12 @@ router.get("/random", userShouldBeLoggedIn, async (req, res) => {
 
 
 router.post("/", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
-  try {
-    const job = await req.user.createJob(req.body);
-    res.send(job);
-  } catch (error) {
-    res.status(500).send(error);
-  }
+    try {
+        const job = await req.user.createJob(req.body);
+        res.send(job);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 
@@ -120,7 +125,6 @@ router.get("/:job_id/matches", async (req, res) => {
         const { job_id } = req.params
 
         const job = await models.Job.findByPk(job_id)
-        console.log(job)
         const matches = await job.getMatch()
         res.send(matches)
     } catch (error) {
