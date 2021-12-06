@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import JobOffer from './JobOffer'
 
 export default function Dashboard() {
@@ -74,7 +75,7 @@ export default function Dashboard() {
                     <div className="row d-flex p-2 justify-content-sm-around">
                         <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
                         <div className="col"><button onClick={handleClickSnoozetButton} className="btn btn-dark sm shadow">Snooze</button></div>
-                        <div className="col"><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></div>
+                        <div className="col"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
                     </div>
                     </div>
                 </div>
