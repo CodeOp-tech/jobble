@@ -9,8 +9,10 @@ import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import JobList from './components/JobList';
 import JobOffer from './components/JobOffer';
+import Admin from './components/Admin';
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
+import FileUpload from './components/FileUpload';
 
 
 // defining the routes to navigate to the home/login/register/private dashboard/
@@ -36,7 +38,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home jobs={jobs} />} />
+          <Route path="/" element={<Home jobs={jobs} setJobsCb={jobs => setJobs(jobs)} />} />
           <Route path="/jobs" element={<JobList jobs={jobs} />} />
           <Route path="/jobs/:id" element={<JobOffer />} />
           <Route path="/login" element={<LoginForm />} />
@@ -44,6 +46,8 @@ function App() {
           <Route path="/user/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
           <Route path="/user/dashboard" element={<Dashboard />} />
+            <Route path="/FileUpload" element={<FileUpload />} />
+          <Route path="/user/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
