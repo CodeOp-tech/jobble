@@ -69,12 +69,12 @@ export default function Dashboard() {
             {currentJob &&
                 <div className="container">
                     <h2>Find a Job</h2>
-                    <div className="card">
+                    <div className="card shadow bg-light">
                         <JobOffer JobOffer={currentJob[0]}/>
                     <div className="row d-flex p-2 justify-content-sm-around">
-                        <div className="col"><button onClick={handleClickRejectButton} className="btn btn-primary sm shadow">Reject</button></div>
-                        <div className="col"><button onClick={handleClickSnoozetButton} className="btn btn-primary sm shadow">Snooze</button></div>
-                        <div className="col"><button onClick={handleClickAcceptButton} className="btn btn-primary sm shadow">Accept</button></div>
+                        <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
+                        <div className="col"><button onClick={handleClickSnoozetButton} className="btn btn-dark sm shadow">Snooze</button></div>
+                        <div className="col"><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></div>
                     </div>
                     </div>
                 </div>

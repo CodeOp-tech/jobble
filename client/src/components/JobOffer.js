@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 
-export default function JobOffer({  }) {
+export default function JobOffer({ props }) {
     let {id} = useParams();
 
     const [jobOffer, setJobOffer] = useState(null);
@@ -23,7 +23,7 @@ export default function JobOffer({  }) {
             return <h2>Loading...</h2>
         }
 
-    return (
+    return ( 
         <div>
            
                 <div className="card">

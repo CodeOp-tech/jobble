@@ -100,7 +100,17 @@ router.delete("/:id", [jobsMustExist, userShouldBeLoggedIn, ShouldBeAdmin], asyn
 
 // to get one job by id
 router.get("/:id", jobsMustExist, function (req, res) {
+
+  // try {
+  //   const {id} = req.params;
+  //   const job = await models.Job.findbyPK(id)
+  //   console.log(job)
     res.send(req.job)
+//   }catch (error) {
+//     console.log(error)
+//     res.status(500).send(error);
+// }
+ 
 });
 
 
