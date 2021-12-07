@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 export default function DispFavorites() {
+
+
   const [myfavorites, setmyfavorites] = useState([]);
 
   const getFavorites = async () => {
@@ -36,4 +38,5 @@ export default function DispFavorites() {
         })}
     </div>
   );
+
 }
