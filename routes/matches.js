@@ -27,9 +27,12 @@ router.get("/users/:userid", async (req, res) => {
     }
 })
 
-router.get("/users/:id/matches", async (req, res) => {
+router.get("/users/:id", async (req, res) => {
     try {
         const matches = await req.user.getMatches({ JobId });
+        //const jobs = await models.Job.FindAll({
+            //Where: JobId= jobs in Matches
+        })
         res.send(matches);
     } catch (error) {
         console.log(error);

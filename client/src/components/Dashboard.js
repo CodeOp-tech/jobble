@@ -47,6 +47,27 @@ export default function Dashboard() {
         }
     };
 
+    const addFavorites = async () => {
+        try {
+            const response = await fetch("/favorites/profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                    JobId: currentJob.id
+                }),
+            })
+            const job = await response.json()
+            console.log(job)
+            // setCurrentJob(job)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
 
     const handleClickAcceptButton = async () => {
         const status = "accepted"
@@ -62,7 +83,8 @@ export default function Dashboard() {
 
     }
 
-    const handleClickFavoritesButton = () => {
+    const handleClickFavoritesButton = async () => {
+        await addFavorites()
         getJobOffer()
 
     }
@@ -78,7 +100,7 @@ export default function Dashboard() {
                         <JobOffer jobOffer={currentJob}/>
                     <div className="row d-flex p-2 justify-content-sm-around">
                         <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
-                        <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Snooze</button></div>
+                        <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Favorite</button></div>
                         <div className="col"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
                     </div>
                     </div>
