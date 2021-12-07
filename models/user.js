@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.belongsToMany(models.Job, {
         through: "UsersJobs",
-        // as: "Match",
+        as: "Match",
         foreignKey: "UserId",
       });
 
       User.belongsToMany(models.Job, {
         through: "Favorites",
-        // as: "Favorite",
+        as: "Favorite",
         foreignKey: "UserId",
       });
     }
