@@ -67,7 +67,7 @@ export default function Profile() {
                 <h4>Applied Jobs</h4>
                 <div>
                     <p>
-                        {matchesInfo && matchesInfo[0].title}
+                        {/* {matchesInfo && matchesInfo[0].title} */}
                     </p>
                 </div>
                 <div>

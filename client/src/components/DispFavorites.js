@@ -29,8 +29,9 @@ export default function DispFavorites() {
 
         // Displaying LogInUser Favorites data
         return (
-            <div>              
-              {myfavorites && myfavorites.map(jobs =>  {
+            <div>   
+                        
+              {myfavorites.length && myfavorites.map(jobs =>  {
 
                   return (
                   
