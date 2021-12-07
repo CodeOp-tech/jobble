@@ -65,10 +65,10 @@ router.get("/:id/jobs", userShouldBeLoggedIn, async (req, res) => {
 router.get("/:id", userShouldBeLoggedIn, async (req, res) => {
   try {
     let options = { include: usersjobs };
-    const user = await models.User.findByPk(req.params.id, options);
+    const user = await models.User.findByPk(req.params.id);
     res.send(user);
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   }
 });
 
