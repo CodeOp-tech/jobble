@@ -31,14 +31,14 @@ router.get("/users/:id", async (req, res) => {
     try {
         const matches = await req.user.getMatches({ JobId });
         //const jobs = await models.Job.FindAll({
-            //Where: JobId= jobs in Matches
-        })
+        //Where: JobId= jobs in Matches
         res.send(matches);
     } catch (error) {
         console.log(error);
         res.status(500).send(error);
     }
 })
+
 // post a job match of a user
 // router.post("/", async (req, res) => {
 //     const { jobId, userId } = req.body
