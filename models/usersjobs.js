@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.User.belongsToMany(models.Job, { through: UsersJobs, as: "Like", foreignKey: "UserId" });
-      models.Job.belongsToMany(models.User, { through: UsersJobs, as: "Like", foreignKey: "JobId" });
+      models.Job.belongsToMany(models.User, { through: UsersJobs, as: "Fit", foreignKey: "JobId" });
     }
   };
   UsersJobs.init({

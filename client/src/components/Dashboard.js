@@ -62,7 +62,7 @@ export default function Dashboard() {
 
     }
 
-    const handleClickSnoozetButton = () => {
+    const handleClickFavoritesButton = () => {
         getJobOffer()
 
     }
@@ -78,7 +78,7 @@ export default function Dashboard() {
                         <JobOffer jobOffer={currentJob}/>
                     <div className="row d-flex p-2 justify-content-sm-around">
                         <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
-                        <div className="col"><button onClick={handleClickSnoozetButton} className="btn btn-dark sm shadow">Snooze</button></div>
+                        <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Snooze</button></div>
                         <div className="col"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
                     </div>
                     </div>
