@@ -5,6 +5,7 @@ import DispFavorites from './DispFavorites';
 export default function Profile() {
     let id= localStorage.getItem("userId");
     const [userInfo, setUserInfo] =  useState();
+    const [matchesInfo, setMatchesInfo] = useState();
 
     const getUserInfo = async () => {
         try {
@@ -15,12 +16,26 @@ export default function Profile() {
             setUserInfo(user)
         }
         catch (error) {
-            console.log(error)
+        console.log(error)
+        }
+    }
+
+    const getJobMatches = async () => {
+        try {
+            const response = await fetch(`/matches/users/${id}`, {
+                headers: { authorization: "Bearer " + localStorage.getItem("token")}
+            })
+            const job = await response.json()
+            setMatchesInfo(job)
+        }
+        catch (error) {
+        console.log(error)
         }
     }
 
     useEffect(()=>{
         getUserInfo()
+        getJobMatches()
     }, []);
 
 
@@ -30,28 +45,38 @@ export default function Profile() {
    
     return (
         <div>
-        <h4>Job Favorites</h4> 
+        
         <div className="container">
             <div className="">
                 <div>
-                    <p>
+                    <h2>Personal Details</h2>
+                    <p> First Name:
                         {userInfo && userInfo.firstname}
                     </p>
-                    <p>
+                    <p> Last Name:
                         {userInfo && userInfo.lastname}
                     </p>
-                    <p>
+                    <p> Username:
                         {userInfo && userInfo.username}
                     </p>
-                    <p>
+                    <p> Email address:
                         {userInfo && userInfo.email}
                     </p>
 
                 </div>
-
+                <h4>Applied Jobs</h4>
+                <div>
+                    <p>
+                        {matchesInfo && matchesInfo[0].title}
+                    </p>
+                </div>
+                <div>
+                <h4>Job Favorites</h4> 
+            <DispFavorites/> 
+                </div>
             </div>
         </div>
-         <DispFavorites/> 
+        
 
          </div>
             )
