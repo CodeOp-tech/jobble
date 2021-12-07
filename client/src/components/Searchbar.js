@@ -9,7 +9,7 @@ const Searchbar = ({ filtering }) => {
 
   function filterJobs(event) {
     event.preventDefault();
-    fetch(`/jobs?name=${userInput}`)
+    fetch(`/jobs?title=${userInput}`)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);

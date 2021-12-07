@@ -2,26 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 
-export default function JobOffer({ props }) {
-    let {id} = useParams();
+export default function JobOffer(props) {
+    // let {id} = useParams();
 
-    const [jobOffer, setJobOffer] = useState(null);
+    // const [jobOffer, setJobOffer] = useState(null);
  
-    useEffect(() => {
-        fetch(`/jobs/${id}`)
-            .then((res) => res.json())
-            .then((json) => {
-            console.log(json);
-            setJobOffer(json);
-            })
-            .catch((error) => {
-            console.log(error);
-            });
-        }, []);
+    // useEffect(() => {
+    //     fetch(`/jobs/${id}`)
+    //         .then((res) => res.json())
+    //         .then((json) => {
+    //         console.log(json);
+    //         setJobOffer(json);
+    //         })
+    //         .catch((error) => {
+    //         console.log(error);
+    //         });
+    //     }, []);
 
-        if (!jobOffer) {
+        if (!props.jobOffer) {
             return <h2>Loading...</h2>
         }
+        let jobOffer = props.jobOffer;
 
     return ( 
         <div>

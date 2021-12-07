@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import JobOffer from './JobOffer'
 
 export default function Dashboard() {
-    const [currentJob, setCurrentJob] = useState({})
+    const [currentJob, setCurrentJob] = useState(null)
 
     useEffect(() => {
         getJobOffer()
@@ -12,9 +12,13 @@ export default function Dashboard() {
 
     const getJobOffer = async () => {
         try {
-            const response = await fetch("/jobs/random")
-            const job = await response.json()
-            setCurrentJob(job)
+            const response = await fetch("/jobs/random", {
+                headers: {
+                    authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+            const jobs = await response.json()
+            setCurrentJob(jobs[0])
         }
         catch (error) {
             console.log(error)
@@ -30,13 +34,13 @@ export default function Dashboard() {
                     authorization: "Bearer " + localStorage.getItem("token"),
                 },
                 body: JSON.stringify({
-                    JobId: currentJob[0].id,
+                    JobId: currentJob.id,
                     state: status,
                 }),
             })
             const job = await response.json()
             console.log(job)
-            setCurrentJob(job)
+            // setCurrentJob(job)
         }
         catch (error) {
             console.log(error)
@@ -44,16 +48,16 @@ export default function Dashboard() {
     };
 
 
-    const handleClickAcceptButton = () => {
+    const handleClickAcceptButton = async () => {
         const status = "accepted"
-        matchJobOffer(status)
+        await matchJobOffer(status)
         getJobOffer()
 
     }
 
-    const handleClickRejectButton = () => {
+    const handleClickRejectButton = async () => {
         const status = "rejected"
-        matchJobOffer(status)
+        await matchJobOffer(status)
         getJobOffer()
 
     }
@@ -71,7 +75,7 @@ export default function Dashboard() {
                 <div className="container">
                     <h2>Find a Job</h2>
                     <div className="card shadow bg-light">
-                        <JobOffer JobOffer={currentJob[0]}/>
+                        <JobOffer jobOffer={currentJob}/>
                     <div className="row d-flex p-2 justify-content-sm-around">
                         <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
                         <div className="col"><button onClick={handleClickSnoozetButton} className="btn btn-dark sm shadow">Snooze</button></div>

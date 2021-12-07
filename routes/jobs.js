@@ -108,7 +108,7 @@ router.get("/:id", jobsMustExist, function (req, res) {
 
   // try {
   //   const {id} = req.params;
-  //   const job = await models.Job.findbyPK(id)
+  //   const job = await models.Job.findByPK(id)
   //   console.log(job)
     res.send(req.job)
 //   }catch (error) {
@@ -133,7 +133,7 @@ router.get("/:job_id/matches", async (req, res) => {
     }
 });
 
-//Delete a jib by id
+//Delete a job by id
 
 router.delete("/:id", async (req, res) => {
   try {
