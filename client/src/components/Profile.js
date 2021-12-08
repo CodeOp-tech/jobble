@@ -2,23 +2,11 @@ import React, { useState, useEffect } from 'react'
 
 import DispFavorites from './DispFavorites';
 
-export default function Profile() {
+export default function Profile({ userInfo }) {
     let id = localStorage.getItem("userId");
-    const [userInfo, setUserInfo] = useState();
     const [matchesInfo, setMatchesInfo] = useState();
 
-    const getUserInfo = async () => {
-        try {
-            const response = await fetch(`/users/${id}`, {
-                headers: { authorization: "Bearer " + localStorage.getItem("token") }
-            })
-            const user = await response.json()
-            setUserInfo(user)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
+
 
     const getJobMatches = async () => {
         try {
@@ -36,9 +24,8 @@ export default function Profile() {
         }
     }
 
-    useEffect(async () => {
-        await getUserInfo()
-        await getJobMatches()
+    useEffect(() => {
+        getJobMatches()
     }, []);
 
 
