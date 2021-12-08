@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const userShouldBeLoggedIn = require('../guards/userShouldBeLoggedIn');
+const jobsMustExist = require('../guards/jobsMustExist');
+const ShouldBeAdmin = require('../guards/ShouldBeAdmin');
 
 var models = require("../models")
 
@@ -67,5 +69,23 @@ router.post("/", userShouldBeLoggedIn, async (req, res) => {
         res.status(500).send(error);
     }
 })
+
+// delete a Match
+router.delete("/:job_id/:user_id", [userShouldBeLoggedIn], async function (req, res) {
+    try {
+        const match = await models.UsersJobs.findOne({
+            where: {
+                JobId: req.params.job_id,
+                UserId: req.params.user_id
+            }
+        })
+        const destroy = await match.destroy()
+        res.send(match)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+
+});
 
 module.exports = router;

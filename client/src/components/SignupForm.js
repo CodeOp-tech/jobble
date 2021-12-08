@@ -10,7 +10,7 @@ export default function SignupForm() {
         username: "",
         password: "",
         email: "",
-        isAdmin: false
+        isAdmin: 0
     })
     const navigate = useNavigate();
 
@@ -24,14 +24,45 @@ export default function SignupForm() {
     const signup = async (e) => {
         e.preventDefault();
 
-        axios("/authentication/register", {
-            method: "POST",
-            data: newUser,
-        })
-            .then((result) => {
-                navigate("/login");
-            })
-            .catch((error) => console.log(error));
+        // axios("/authentication/register", {
+        //     method: "POST",
+        //     data: newUser,
+        // })
+        //     .then((result) => {
+        //         navigate("/login");
+        //     })
+        //     .catch((error) => console.log(error));
+
+        try {
+            const { firstname, lastname, username, password, email } = newUser;
+            let { isAdmin } = newUser
+            if (isAdmin) {
+                isAdmin = 1
+            }
+            else {
+                isAdmin = 0
+            }
+            console.log(isAdmin)
+            const response = await fetch("/authentication/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    password: password,
+                    admin: isAdmin,
+                    username: username
+                }),
+            });
+            const data = await response.json();
+            navigate("/login")
+            // setNewUser(data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
 
