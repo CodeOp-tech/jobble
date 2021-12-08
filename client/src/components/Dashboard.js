@@ -88,6 +88,10 @@ export default function Dashboard() {
         getJobOffer()
 
     }
+    const handleClickSnoozeButton = async () => {
+        getJobOffer()
+
+    }
 
 
 
@@ -97,12 +101,13 @@ export default function Dashboard() {
                 <div className="container">
                     <h2>Find a Job</h2>
                     <div className="card shadow bg-light">
-                        <JobOffer jobOffer={currentJob}/>
-                    <div className="row d-flex p-2 justify-content-sm-around">
-                        <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
-                        <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Favorite</button></div>
-                        <div className="col"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
-                    </div>
+                        <JobOffer jobOffer={currentJob} />
+                        <div className="row d-flex p-2 justify-content-sm-around">
+                            <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
+                            <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Favorite</button></div>
+                            <div className="col"><button onClick={handleClickSnoozeButton} className="btn btn-dark sm shadow">Snooze</button></div>
+                            <div className="col"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
+                        </div>
                     </div>
                 </div>
             }
