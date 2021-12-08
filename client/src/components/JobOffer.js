@@ -27,18 +27,18 @@ export default function JobOffer(props) {
     return ( 
         <div>
            
-                <div className="card">
-                <h3>
-                    Title: {jobOffer && jobOffer.title}
+                <div className="card-jobOffer">
+                <h3 className="mb-2">
+                     {jobOffer && jobOffer.title}
                 </h3>
-                <div>Company:{jobOffer && jobOffer.company}</div>
-                <div>Company Description:{jobOffer && jobOffer.company_description}</div>
-                <div>Type:{jobOffer && jobOffer.type}</div>
-                <div>Description:{jobOffer && jobOffer.description}</div>
-                <div>Experience: {jobOffer && jobOffer.experience}</div>
-                <div>Contract: {jobOffer && jobOffer.contract}</div>
-                <div>Salary:{jobOffer && jobOffer.salary}</div>
-                <div>Perks:{jobOffer && jobOffer.perks}</div>
+                <div><h5>Company:</h5> {jobOffer && jobOffer.company}</div>
+                <div><h5>Company Description:</h5> {jobOffer && jobOffer.company_description}</div>
+                <div><h5>Type:</h5> {jobOffer && jobOffer.type}</div>
+                <div><h5>Description:</h5> {jobOffer && jobOffer.description}</div>
+                <div><h5>Experience:</h5> {jobOffer && jobOffer.experience}</div>
+                <div><h5>Contract:</h5> {jobOffer && jobOffer.contract}</div>
+                <div><h5>Salary:</h5> {jobOffer && jobOffer.salary} € gross per annum</div>
+                <div><h5>Perks:</h5> {jobOffer && jobOffer.perks} </div>
                 </div>
         </div>
     )
