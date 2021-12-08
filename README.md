@@ -2,8 +2,8 @@
 
 ## Setup
 
-* **Run npm install** in project directory. This will install server-related dependencies such as express.
-* **cd client** and **run npm install**. This will install client dependencies (React).
+* Run **npm install** in project directory. This will install server-related dependencies such as express.
+* **cd client** and run **npm install**. This will install client dependencies (React).
 
 ## Database Prep
 
@@ -64,20 +64,20 @@ This is the database schema:
 
 The app is divided into 15 components:
 ```
-* Home.js**
+* Home.js
 * Navbar.js**
-* AdminDashboard.js**
-* AuthProvider.js**
-* DispFavorites.js**
-* EmployerJob.js**
-* FileUpload.js**
-* Dashboard.js**
-* JobList.js**
-* JobOffer.js**
-* LoginForm.js**
-* SignUpForm.js**
-* PrivateRoute.js**
-* Searchbar.js**
+* AdminDashboard.js
+* AuthProvider.js
+* DispFavorites.js
+* EmployerJob.js
+* FileUpload.js
+* Dashboard.js
+* JobList.js
+* JobOffer.js
+* LoginForm.js
+* SignUpForm.js
+* PrivateRoute.js
+* Searchbar.js
 ```
 
 # Future features to be implemented
