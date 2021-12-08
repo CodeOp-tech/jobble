@@ -32,7 +32,7 @@ router.get("/users/:id", async (req, res) => {
         const matches = await req.user.getMatches({ JobId });
         //const jobs = await models.Job.FindAll({
             //Where: JobId= jobs in Matches
-        })
+        //})
         res.send(matches);
     } catch (error) {
         console.log(error);
