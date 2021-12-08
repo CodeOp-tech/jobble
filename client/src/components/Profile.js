@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import DispFavorites from './DispFavorites';
 
-export default function Profile({ userInfo }) {
+export default function Profile() {
     let id = localStorage.getItem("userId");
 
     const [userInfo, setUserInfo] = useState();
