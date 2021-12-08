@@ -9,7 +9,7 @@ import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import JobList from './components/JobList';
 import JobOffer from './components/JobOffer';
-import Admin from './components/Admin';
+import AdminDashboard from './components/AdminDashboard';
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 import FileUpload from './components/FileUpload';
@@ -19,18 +19,42 @@ import FileUpload from './components/FileUpload';
 function App() {
 
   const [jobs, setJobs] = useState([]);
+  const [userInfo, setUserInfo] = useState();
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    fetch("/jobs")
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json);
-          setJobs(json);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    getJobs()
+    getUserInfo()
   }, []);
+
+  const getJobs = async () => {
+    try {
+      const response = await fetch("/jobs")
+      const jobs = await response.json()
+      setJobs(jobs);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getUserInfo = async () => {
+    try {
+      const id = localStorage.getItem("userId")
+      const response = await fetch(`/users/${id}`, {
+        headers: { authorization: "Bearer " + localStorage.getItem("token") }
+      })
+      const user = await response.json()
+      setUserInfo(user)
+      if (user.admin) {
+        setIsAdmin(true)
+      } else {
+        setIsAdmin(false)
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
 
@@ -43,11 +67,17 @@ function App() {
           <Route path="/jobs/:id" element={<JobOffer />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
-          <Route path="/user/profile" element={<Profile />} />
-              <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/user/dashboard" element={<Dashboard />} />
-            <Route path="/FileUpload" element={<FileUpload />} />
-          <Route path="/user/admin" element={<Admin />} />
+          {isAdmin ?
+            <Route>
+              <Route path="/user/dashboard" element={<AdminDashboard />} />
+            </Route>
+            :
+            <Route>
+              <Route path="/user/profile" element={<Profile userInfo={userInfo} />} />
+              <Route path="/user/dashboard" element={<Dashboard />} />
+              <Route path="/FileUpload" element={<FileUpload />} />
+            </Route>}
+          {/* <Route path="/profile/:id" element={<Profile />} /> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>
