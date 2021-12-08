@@ -33,6 +33,7 @@ function JobList(props) {
                 </div>
                 ))}
             </div>
+
             </div>
         </div>
     );

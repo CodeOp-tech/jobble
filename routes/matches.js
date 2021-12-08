@@ -43,6 +43,26 @@ router.get("/users/:id", async (req, res) => {
     }
 })
 
+router.get("/employers/:id", [userShouldBeLoggedIn, ShouldBeAdmin], async (req, res) => {
+    try {
+        const id = req.user.id
+        const employerJobs = await models.Job.findAll({
+            include: [{
+                model: models.User,
+                as: "Match",
+                through: { where: { state: "accepted" } }
+            }],
+            where: {
+                EmployerId: id
+            }
+        });
+        res.send(employerJobs);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+})
+
 // post a job match of a user
 // router.post("/", async (req, res) => {
 //     const { jobId, userId } = req.body
