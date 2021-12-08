@@ -22,14 +22,13 @@ function App() {
 
   useEffect(() => {
     fetch("/jobs")
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json);
-          setJobs(json);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      .then((res) => res.json())
+      .then((json) => {
+        setJobs(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -44,9 +43,9 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
           <Route path="/user/profile" element={<Profile />} />
-              <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/user/dashboard" element={<Dashboard />} />
-            <Route path="/FileUpload" element={<FileUpload />} />
+          <Route path="/FileUpload" element={<FileUpload />} />
           <Route path="/user/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
