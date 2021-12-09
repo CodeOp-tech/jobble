@@ -103,7 +103,7 @@ export default function PostJobOffer() {
                     <span class="input-group-text range">Experience:</span>
                     <div className="range">
                         <label class="form-label">
-                            <input type="range" min="1" max="10" name="experience" value={jobInput.experience} onChange={handleInputChange} class="form-range input-range" />
+                            <input type="range" min="1" max="20" name="experience" value={jobInput.experience} onChange={handleInputChange} class="form-range input-range" />
                             <span>{experience()}</span>
                         </label>
                     </div>
