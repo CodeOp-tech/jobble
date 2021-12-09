@@ -56,12 +56,12 @@ export default function Dashboard() {
                     authorization: "Bearer " + localStorage.getItem("token"),
                 },
                 body: JSON.stringify({
-                    JobId: currentJob.id
+                    JobId: currentJob.id, UserID: currentJob.UserID
                 }),
             })
             const job = await response.json()
             console.log(job)
-            // setCurrentJob(job)
+            //setCurrentJob(job)
         }
         catch (error) {
             console.log(error)
@@ -100,7 +100,7 @@ export default function Dashboard() {
                         <JobOffer jobOffer={currentJob} />
                         <div className="row d-flex p-2 mt-4 justify-content-sm-around">
                             <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
-                            <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Favorite</button></div>
+                            <div className="col"><button onClick={handleClickFavoritesButton()} className="btn btn-dark sm shadow">Favorite</button></div>
                             <div className="col justify content-sm-end"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
                         </div>
                     </div>
