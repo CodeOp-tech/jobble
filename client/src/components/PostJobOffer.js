@@ -64,7 +64,7 @@ export default function PostJobOffer() {
         let sign = "";
 
         if (number <= 1) { sign = "<" }
-        if (number >= 10) { sign = ">" }
+        if (number >= 20) { sign = ">" }
         if (number === "") { sign = "" }
         return (" " + sign + " " + number)
     }
@@ -81,6 +81,7 @@ export default function PostJobOffer() {
                     <span class="input-group-text" >Type</span>
                     <select name="type" value={jobInput.type} onChange={handleInputChange} class="form-select">
                         <option>Open this select menu</option>
+                        <option value="Administrative">Administrative</option>
                         <option value="Backend">Backend</option>
                         <option value="Frontend">Frontend</option>
                         <option value="Full Stack">Full Stack</option>
@@ -116,7 +117,7 @@ export default function PostJobOffer() {
                             <span>{numberWithCommas(jobInput.salary)}</span>
                         </label>
                     </div>
-                    <span class="input-group-text">Contact:</span>
+                    <span class="input-group-text">Contract:</span>
                     <select name="contract" value={jobInput.contract} onChange={handleInputChange} class="form-select">
                         <option >Open this select menu</option>
                         <option value="Full-time">Full-time</option>
