@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-
+import image from "../Jobble.png";
 
 function NavBar() {
   const auth = useAuth();
@@ -9,12 +9,14 @@ function NavBar() {
   const logout = () => {
     auth.signout(() => navigate("/login"));
   };
+  const admin = localStorage.getItem("admin");
+  console.log("Is admin?", typeof admin);
 
   return (
     <div className="navbar navbar-expand-sm navbar-dark bg-dark mb-5 p-3 sticky">
       <div className="container-fluid"></div>
       <a className="navbar-brand" href="#">
-        {/* <img className="logo-img" src={image}/> */}
+        <img className="logo-img" src={image}/>
       </a>
       <div className="collapse" id="navbarToggleExternalContent">
         <div className="bg-dark p-4">
@@ -46,6 +48,12 @@ function NavBar() {
                   Profile
                 </Link>
                 )}
+                
+              {auth.isLoggedIn && admin === "true" && (
+                <Link to="/user/admin" className="nav-link">
+                  Admin
+                </Link>
+              )}
 
               {auth.isLoggedIn && (
                 <button onClick={logout} className="nav-link btn btn-primary">
@@ -101,6 +109,13 @@ function NavBar() {
             {auth.isLoggedIn && (
               <Link to="/user/profile" className="nav-link">
                 Profile
+              </Link>
+            )}
+          </li>
+          <li className="nav-item">
+            {auth.isLoggedIn && admin === "true" && (
+              <Link to="/user/admin" className="nav-link">
+                Admin
               </Link>
             )}
           </li>

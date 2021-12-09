@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import { Link } from "react-router-dom";
 import JobOffer from './JobOffer'
 
 export default function Dashboard() {
-    const [currentJob, setCurrentJob] = useState({})
+    const [currentJob, setCurrentJob] = useState(null)
+    let {JobId} = useParams();
 
     useEffect(() => {
         getJobOffer()
@@ -10,10 +13,26 @@ export default function Dashboard() {
 
 
     const getJobOffer = async () => {
+
+        let url = "";
         try {
-            const response = await fetch("/jobs/random")
-            const job = await response.json()
-            setCurrentJob(job)
+
+            if(JobId){
+                url = `/jobs/${JobId}`;
+            }else {
+                url= "/jobs/random";
+            }
+            const response = await fetch( url, {
+                headers: {
+                    authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+            const jobs = await response.json()
+            if(JobId){
+                setCurrentJob(jobs)
+            } else {
+                setCurrentJob(jobs[0])
+            }
         }
         catch (error) {
             console.log(error)
@@ -29,13 +48,34 @@ export default function Dashboard() {
                     authorization: "Bearer " + localStorage.getItem("token"),
                 },
                 body: JSON.stringify({
-                    JobId: currentJob[0].id,
+                    JobId: currentJob.id,
                     state: status,
                 }),
             })
             const job = await response.json()
             console.log(job)
-            setCurrentJob(job)
+            // setCurrentJob(job)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
+    const addFavorites = async () => {
+        try {
+            const response = await fetch("/favorites/profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                    JobId: currentJob.id, UserID: currentJob.UserID
+                }),
+            })
+            const job = await response.json()
+            console.log(job)
+            //setCurrentJob(job)
         }
         catch (error) {
             console.log(error)
@@ -43,37 +83,40 @@ export default function Dashboard() {
     };
 
 
-    const handleClickAcceptButton = () => {
+    const handleClickAcceptButton = async () => {
         const status = "accepted"
-        matchJobOffer(status)
+        await matchJobOffer(status)
         getJobOffer()
 
     }
 
-    const handleClickRejectButton = () => {
+    const handleClickRejectButton = async () => {
         const status = "rejected"
-        matchJobOffer(status)
+        await matchJobOffer(status)
         getJobOffer()
 
     }
 
-    const handleClickSnoozetButton = () => {
+    const handleClickFavoritesButton = async () => {
+        await addFavorites()
         getJobOffer()
 
     }
+    
 
 
 
     return (
         <div>
             {currentJob &&
-                <div>
-                    <h2>Find a Job</h2>
-                    <div>
-                        <JobOffer JobOffer={currentJob[0]} />
-                        <button onClick={handleClickRejectButton}>Reject</button>
-                        <button onClick={handleClickSnoozetButton}>Snooze</button>
-                        <button onClick={handleClickAcceptButton}>Accept</button>
+                <div className="container d-flex justify-content-center">
+                    <div className="card-dashboard shadow bg-light">
+                        <JobOffer jobOffer={currentJob} />
+                        <div className="row d-flex p-2 mt-4 justify-content-sm-around">
+                            <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
+                            <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Favorite</button></div>
+                            <div className="col justify content-sm-end"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
+                        </div>
                     </div>
                 </div>
             }

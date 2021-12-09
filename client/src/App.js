@@ -9,26 +9,56 @@ import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import JobList from './components/JobList';
 import JobOffer from './components/JobOffer';
+import AdminDashboard from './components/AdminDashboard';
+import PostJobOffer from './components/PostJobOffer';
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
+import FileUpload from './components/FileUpload';
 
 
 // defining the routes to navigate to the home/login/register/private dashboard/
 function App() {
 
   const [jobs, setJobs] = useState([]);
+  const [userInfo, setUserInfo] = useState();
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    fetch("/jobs")
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json);
-          setJobs(json);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    getJobs()
+    getUserInfo()
   }, []);
+
+  const getJobs = async () => {
+    try {
+      const response = await fetch("/jobs")
+      const jobs = await response.json()
+      setJobs(jobs);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getUserInfo = async () => {
+    try {
+      const id = localStorage.getItem("userId")
+      if(!id) {
+        return
+      }
+      const response = await fetch(`/users/${id}`, {
+        headers: { authorization: "Bearer " + localStorage.getItem("token") }
+      })
+      const user = await response.json()
+      setUserInfo(user)
+      if (user.admin) {
+        setIsAdmin(true)
+      } else {
+        setIsAdmin(false)
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
 
@@ -36,14 +66,25 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home jobs={jobs} />} />
+          <Route path="/" element={<Home jobs={jobs} setJobsCb={jobs => setJobs(jobs)} />} />
           <Route path="/jobs" element={<JobList jobs={jobs} />} />
           <Route path="/jobs/:id" element={<JobOffer />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
-          <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/user/dashboard" element={<Dashboard />} />
+          
+            <Route>
+
+              <Route path="/user/admin" element={<AdminDashboard />} />
+               <Route path="/user/dashboard/add" element={<PostJobOffer />} />
+            </Route>
+            
+            <Route>
+              <Route path="/user/profile" element={<Profile userInfo={userInfo} />} />
+              <Route path="/user/dashboard" element={<Dashboard />} />
+              <Route path="/user/dashboard/:JobId" element={<Dashboard />} />
+              <Route path="/FileUpload" element={<FileUpload />} />
+            </Route>
+          {/* <Route path="/profile/:id" element={<Profile />} /> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>

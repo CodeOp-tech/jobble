@@ -10,6 +10,8 @@ function useProvideAuth() {
     try {
       const { data } = await axios.post("/authentication/login", user);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("admin", data.admin);
       setIsLoggedIn(true);
       // an open door so we can do anything after logging in
       cb(data);
@@ -21,6 +23,8 @@ function useProvideAuth() {
 
   const signout = (cb = () => { }) => {
     localStorage.clear("token");
+    localStorage.clear("userId");
+    localStorage.clear("admin");
     setIsLoggedIn(null);
     cb();
   };
