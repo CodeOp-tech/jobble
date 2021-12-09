@@ -81,7 +81,7 @@ export default function PostJobOffer() {
                     <span class="input-group-text" >Type</span>
                     <select name="type" value={jobInput.type} onChange={handleInputChange} class="form-select">
                         <option>Open this select menu</option>
-                        <option value="Receptionist">Administrative</option>
+                        <option value="Administrative">Administrative</option>
                         <option value="Backend">Backend</option>
                         <option value="Frontend">Frontend</option>
                         <option value="Full Stack">Full Stack</option>
