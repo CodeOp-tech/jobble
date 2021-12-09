@@ -27,13 +27,14 @@ export default function AdminDashboard() {
     return (
         <div class="container">
             <div class="row gx-5">
-                <h2 class="display-5 col">Your offers</h2>
+            <h2 class="display-5">Your job posts</h2>
                 <Link to="/user/dashboard/add" class="btn btn-outline-dark col add-offer-button px-1">Add new offer</Link>
                 {employerMatches.length && employerMatches.map((jobMatch) =>
                     <div key={jobMatch.id}>
                         <EmployerJob jobMatch={jobMatch} />
                     </div>)}
             </div>
+
         </div>
     )
 }

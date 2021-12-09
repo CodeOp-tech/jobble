@@ -9,6 +9,8 @@ function NavBar() {
   const logout = () => {
     auth.signout(() => navigate("/login"));
   };
+  const admin = localStorage.getItem("admin");
+  console.log("Is admin?", typeof admin);
 
   return (
     <div className="navbar navbar-expand-sm navbar-dark bg-dark mb-5 p-3 sticky">
@@ -46,6 +48,12 @@ function NavBar() {
                   Profile
                 </Link>
                 )}
+                
+              {auth.isLoggedIn && admin === "true" && (
+                <Link to="/user/admin" className="nav-link">
+                  Admin
+                </Link>
+              )}
 
               {auth.isLoggedIn && (
                 <button onClick={logout} className="nav-link btn btn-primary">
@@ -101,6 +109,13 @@ function NavBar() {
             {auth.isLoggedIn && (
               <Link to="/user/profile" className="nav-link">
                 Profile
+              </Link>
+            )}
+          </li>
+          <li className="nav-item">
+            {auth.isLoggedIn && admin === "true" && (
+              <Link to="/user/admin" className="nav-link">
+                Admin
               </Link>
             )}
           </li>

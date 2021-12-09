@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
 import JobOffer from './JobOffer'
 
 export default function Dashboard() {
     const [currentJob, setCurrentJob] = useState(null)
+    let {JobId} = useParams();
 
     useEffect(() => {
         getJobOffer()
@@ -11,14 +13,26 @@ export default function Dashboard() {
 
 
     const getJobOffer = async () => {
+
+        let url = "";
         try {
-            const response = await fetch("/jobs/random", {
+
+            if(JobId){
+                url = `/jobs/${JobId}`;
+            }else {
+                url= "/jobs/random";
+            }
+            const response = await fetch( url, {
                 headers: {
                     authorization: "Bearer " + localStorage.getItem("token")
                 }
             });
             const jobs = await response.json()
-            setCurrentJob(jobs[0])
+            if(JobId){
+                setCurrentJob(jobs)
+            } else {
+                setCurrentJob(jobs[0])
+            }
         }
         catch (error) {
             console.log(error)
@@ -88,25 +102,20 @@ export default function Dashboard() {
         getJobOffer()
 
     }
-    const handleClickSnoozeButton = async () => {
-        getJobOffer()
-
-    }
+    
 
 
 
     return (
         <div>
             {currentJob &&
-                <div className="container">
-                    <h2>Find a Job</h2>
-                    <div className="card shadow bg-light">
+                <div className="container d-flex justify-content-center">
+                    <div className="card-dashboard shadow bg-light">
                         <JobOffer jobOffer={currentJob} />
-                        <div className="row d-flex p-2 justify-content-sm-around">
+                        <div className="row d-flex p-2 mt-4 justify-content-sm-around">
                             <div className="col"><button onClick={handleClickRejectButton} className="btn btn-danger sm shadow">Reject</button></div>
                             <div className="col"><button onClick={handleClickFavoritesButton} className="btn btn-dark sm shadow">Favorite</button></div>
-                            <div className="col"><button onClick={handleClickSnoozeButton} className="btn btn-dark sm shadow">Snooze</button></div>
-                            <div className="col"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
+                            <div className="col justify content-sm-end"><Link to={"/FileUpload"}><button onClick={handleClickAcceptButton} className="btn btn-success sm shadow">Accept</button></Link></div>
                         </div>
                     </div>
                 </div>
