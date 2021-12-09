@@ -63,3 +63,16 @@ h6{
 .card-title-home{
     text-align: center;
 }
+
+.logo-img {
+    left: 8px!important;
+    width: 80px;
+    background-size: contain
+  }
+
+  .navbar-expand-sm {
+    flex-wrap: wrap;
+  }
+  .nav-link{
+      font-size: 22px;
+  }

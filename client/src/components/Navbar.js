@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-
+import image from "../Jobble.png";
 
 function NavBar() {
   const auth = useAuth();
@@ -16,7 +16,7 @@ function NavBar() {
     <div className="navbar navbar-expand-sm navbar-dark bg-dark mb-5 p-3 sticky">
       <div className="container-fluid"></div>
       <a className="navbar-brand" href="#">
-        {/* <img className="logo-img" src={image}/> */}
+        <img className="logo-img" src={image}/>
       </a>
       <div className="collapse" id="navbarToggleExternalContent">
         <div className="bg-dark p-4">
