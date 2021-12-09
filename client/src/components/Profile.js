@@ -2,25 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 import DispFavorites from './DispFavorites';
 
-export default function Profile() {
+export default function Profile(props) {
     let id = localStorage.getItem("userId");
-
-    const [userInfo, setUserInfo] = useState();
+   
     const [matchesInfo, setMatchesInfo] = useState([]);
 
 
-    const getUserInfo = async () => {
-        try {
-            const response = await fetch(`/users/${id}`, {
-                headers: { authorization: "Bearer " + localStorage.getItem("token") }
-            })
-            const user = await response.json()
-            setUserInfo(user)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
+   
+
 
     const getJobMatches = async () => {
         try {
@@ -36,13 +25,14 @@ export default function Profile() {
         }
     }
 
-    useEffect(() => {
-        getUserInfo()
-        getJobMatches()
+
+    useEffect(async () => {
+        //await getUserInfo()
+        await getJobMatches()
     }, []);
 
 
-    if (!userInfo) {
+    if (!props.userInfo) {
         return <h2>Loading....</h2>
     }
 
@@ -55,19 +45,19 @@ export default function Profile() {
                         <h3 className="mt-2 p-2">Personal Details</h3>
                         <h6>First Name:</h6>
                         <p> 
-                            {userInfo && userInfo.firstname}
+                            {props.userInfo && props.userInfo.firstname}
                         </p>
                         <h6>Last Name:</h6>
                         <p> 
-                            {userInfo && userInfo.lastname}
+                            {props.userInfo && props.userInfo.lastname}
                         </p>
                         <h6>User name:</h6>
                         <p> 
-                            {userInfo && userInfo.Username}
+                            {props.userInfo && props.userInfo.Username}
                         </p>
                         <h6>Email address:</h6>
                         <p> 
-                            {userInfo && userInfo.email}
+                            {props.userInfo && props.userInfo.email}
                         </p>
 
                     </div>

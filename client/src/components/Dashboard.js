@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
 import JobOffer from './JobOffer'
 
 export default function Dashboard() {
     const [currentJob, setCurrentJob] = useState(null)
+    let {JobId} = useParams();
 
     useEffect(() => {
         getJobOffer()
@@ -11,14 +13,26 @@ export default function Dashboard() {
 
 
     const getJobOffer = async () => {
+
+        let url = "";
         try {
-            const response = await fetch("/jobs/random", {
+
+            if(JobId){
+                url = `/jobs/${JobId}`;
+            }else {
+                url= "/jobs/random";
+            }
+            const response = await fetch( url, {
                 headers: {
                     authorization: "Bearer " + localStorage.getItem("token")
                 }
             });
             const jobs = await response.json()
-            setCurrentJob(jobs[0])
+            if(JobId){
+                setCurrentJob(jobs)
+            } else {
+                setCurrentJob(jobs[0])
+            }
         }
         catch (error) {
             console.log(error)

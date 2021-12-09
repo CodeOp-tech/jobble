@@ -40,6 +40,9 @@ function App() {
   const getUserInfo = async () => {
     try {
       const id = localStorage.getItem("userId")
+      if(!id) {
+        return
+      }
       const response = await fetch(`/users/${id}`, {
         headers: { authorization: "Bearer " + localStorage.getItem("token") }
       })
@@ -67,16 +70,17 @@ function App() {
           <Route path="/jobs/:id" element={<JobOffer />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<SignupForm />} />
-          {isAdmin ?
+          
             <Route>
-              <Route path="/user/dashboard" element={<AdminDashboard />} />
+              <Route path="/user/admin" element={<AdminDashboard />} />
             </Route>
-            :
+            
             <Route>
               <Route path="/user/profile" element={<Profile userInfo={userInfo} />} />
               <Route path="/user/dashboard" element={<Dashboard />} />
+              <Route path="/user/dashboard/:JobId" element={<Dashboard />} />
               <Route path="/FileUpload" element={<FileUpload />} />
-            </Route>}
+            </Route>
           {/* <Route path="/profile/:id" element={<Profile />} /> */}
         </Routes>
       </BrowserRouter>

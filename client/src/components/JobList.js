@@ -1,8 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
-
+import useAuth from "../hooks/useAuth";
 
 function JobList(props) {
+    const auth = useAuth();
+    const navigate = useNavigate();
+
+    const handleClick = (id) => {
+        if(!auth.isLoggedIn) {
+        navigate("/login");
+        } else {
+          navigate(`/user/dashboard/${id}`)  
+        }
+    }
 
     
     return (
@@ -23,8 +33,8 @@ function JobList(props) {
                                 </a>
                             </div>
                             <div className="col">
-                                <button type="submit" className="btn btn-primary">
-                                Add to my Favorites!
+                                <button type="button" className="btn btn-primary" onClick={()=>handleClick(job.id)}>
+                                More Details!
                                 </button>
                             </div>
                         </div>
