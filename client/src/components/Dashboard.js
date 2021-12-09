@@ -70,12 +70,12 @@ export default function Dashboard() {
                     authorization: "Bearer " + localStorage.getItem("token"),
                 },
                 body: JSON.stringify({
-                    JobId: currentJob.id
+                    JobId: currentJob.id, UserID: currentJob.UserID
                 }),
             })
             const job = await response.json()
             console.log(job)
-            // setCurrentJob(job)
+            //setCurrentJob(job)
         }
         catch (error) {
             console.log(error)

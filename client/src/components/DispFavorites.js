@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function DispFavorites() {
+
   const [myfavorites, setmyfavorites] = useState([]);
   const getFavorites = async () => {
     //Get data from DB table
@@ -64,5 +65,7 @@ export default function DispFavorites() {
           );
         })}
     </div>
+
   );
 }
+

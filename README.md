@@ -62,7 +62,7 @@ This is the database schema:
 
 # Front End
 
-The app is divided into 15 components:
+The app is divided into 16 components:
 ```
 * Home.js
 * Navbar.js**
@@ -76,7 +76,9 @@ The app is divided into 15 components:
 * JobOffer.js
 * LoginForm.js
 * SignUpForm.js
+* Profile.js
 * PrivateRoute.js
+* PostJobOffer.js
 * Searchbar.js
 ```
 
@@ -84,6 +86,7 @@ The app is divided into 15 components:
 
 * A FileUpload table would be necessary in order to store the uploaded files somewhere so the admin would be able to retrieve them.
 * In order to scale the project maybe create a new table for companies, so the admin instead of a user would be a company and therefore if the person stops working for the company there's no issues.
+* In order to make the app more dynamic and not so cold, it'd be a good idea to implement a chat so both **admnin** and **user** can interact directly if they match.
 * At the moment the Admin is not able to post or delete jobs in the app, that would be a needed feature for the Admin to have all the functionalities in use.
 * The Searchbar could also implement Geolocation and search jobs by location.
 * The Admin could also set up a date to remove the job post automatically with a calendar and the user could receive a notification that the job has been filled. 

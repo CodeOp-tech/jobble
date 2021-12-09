@@ -7,10 +7,13 @@ export default function Profile(props) {
    
     const [matchesInfo, setMatchesInfo] = useState([]);
 
+
    
+
 
     const getJobMatches = async () => {
         try {
+            
             const response = await fetch(`/users/${id}/matches`, {
                 headers: { authorization: "Bearer " + localStorage.getItem("token") }
             })
@@ -21,6 +24,7 @@ export default function Profile(props) {
             console.log(error)
         }
     }
+
 
     useEffect(async () => {
         //await getUserInfo()
@@ -47,7 +51,7 @@ export default function Profile(props) {
                         <p> 
                             {props.userInfo && props.userInfo.lastname}
                         </p>
-                        <h6>Username:</h6>
+                        <h6>User name:</h6>
                         <p> 
                             {props.userInfo && props.userInfo.Username}
                         </p>
@@ -62,7 +66,7 @@ export default function Profile(props) {
                         <ul>
                             { matchesInfo.length && (
                                 matchesInfo.filter(j => j.UsersJobs.state === 'accepted').map(j =>
-                                    <li key={j.id}>{j.company}, {j.title} </li>
+                                    <li key={j.id}>{j.title} ({j.company})</li>
                                 )
                             )}
                         </ul>
