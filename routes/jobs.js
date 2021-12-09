@@ -3,8 +3,6 @@ var router = express.Router();
 var jobsMustExist = require("../guards/JobsMustExist");
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 const ShouldBeAdmin = require("../guards/ShouldBeAdmin");
-
-
 const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 var models = require("../models");
 

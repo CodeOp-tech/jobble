@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import EmployerJob from './EmployerJob';
+import "./AdminDashboard.css";
 
 export default function AdminDashboard() {
     const [employerMatches, setEmployerMatches] = useState([])
@@ -8,8 +10,6 @@ export default function AdminDashboard() {
     useEffect(() => {
         getEmployerMatches()
     }, []);
-
-
 
     const getEmployerMatches = async () => {
         try {
@@ -23,15 +23,18 @@ export default function AdminDashboard() {
         }
     }
 
-    // display information on who applied to a job
 
     return (
         <div class="container">
+            <div class="row gx-5">
             <h2 class="display-5">Your job posts</h2>
-            {employerMatches.length && employerMatches.map((jobMatch) =>
-                <div key={jobMatch.id}>
-                    <EmployerJob jobMatch={jobMatch} />
-                </div>)}
+                <Link to="/user/dashboard/add" class="btn btn-outline-dark col add-offer-button px-1">Add new offer</Link>
+                {employerMatches.length && employerMatches.map((jobMatch) =>
+                    <div key={jobMatch.id}>
+                        <EmployerJob jobMatch={jobMatch} />
+                    </div>)}
+            </div>
+
         </div>
     )
 }
