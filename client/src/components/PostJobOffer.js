@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import JobOffer from './JobOffer';
+import { Link } from "react-router-dom";
 import "./PostJobOffer.css"
 
 export default function PostJobOffer() {
@@ -71,6 +71,7 @@ export default function PostJobOffer() {
 
     return (
         <div className="container">
+            <Link to="/user/admin" class="btn btn-outline-dark col add-offer-button px-1 link">Your job posts</Link>
             <h3>Job info</h3>
             <form onSubmit={(event) => submitJobOfferForm(event)}  >
                 <div class="input-group mb-3">
