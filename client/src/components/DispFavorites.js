@@ -1,9 +1,7 @@
-// import React, { useState, useEffect } from "react";
-// import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-// export default function DispFavorites() {
-
-
+export default function DispFavorites() {
 
   const [myfavorites, setmyfavorites] = useState([]);
   const getFavorites = async () => {
@@ -56,5 +54,5 @@
 
   )
 
-
+}
 
