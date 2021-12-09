@@ -1,0 +1,18 @@
+.range {
+  margin-right: 4%;
+}
+.input-range {
+  width: 220px;
+}
+
+#salary-range {
+  width: 300px;
+}
+
+textarea {
+  resize: none;
+}
+
+.link {
+  margin-left: 3%;
+}

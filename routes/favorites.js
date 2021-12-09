@@ -35,9 +35,11 @@ router.delete("/:JobId", userShouldBeLoggedIn, async (req, res) => {
 
   try {
     // const job = req.job;
-    const favorites = await req.user.removeFavorite(JobId);
+    await req.user.removeFavorite(JobId);
 
-    res.send({ message: "job was deleted" });
+  const favorites = await req.user.getFavorite()
+
+    res.send({ message: "job was deleted", data: favorites });
   } catch (error) {
     console.log(error);
     res.status(500).send(error);

@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import JobList from './components/JobList';
 import JobOffer from './components/JobOffer';
 import AdminDashboard from './components/AdminDashboard';
+import PostJobOffer from './components/PostJobOffer';
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 import FileUpload from './components/FileUpload';
@@ -72,7 +73,9 @@ function App() {
           <Route path="/register" element={<SignupForm />} />
           
             <Route>
+
               <Route path="/user/admin" element={<AdminDashboard />} />
+               <Route path="/user/dashboard/add" element={<PostJobOffer />} />
             </Route>
             
             <Route>
