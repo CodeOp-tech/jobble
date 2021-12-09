@@ -27,7 +27,7 @@ export default function AdminDashboard() {
 
     return (
         <div class="container">
-            <h2 class="display-5">Your offers</h2>
+            <h2 class="display-5">Your job posts</h2>
             {employerMatches.length && employerMatches.map((jobMatch) =>
                 <div key={jobMatch.id}>
                     <EmployerJob jobMatch={jobMatch} />
