@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import JobOffer from './JobOffer';
 import "./PostJobOffer.css"
 
 export default function PostJobOffer() {
@@ -6,7 +7,7 @@ export default function PostJobOffer() {
         title: "",
         type: "",
         description: "",
-        experience: "",
+        experience: 1,
         contract: "",
         salary: 14000,
         company: "",
@@ -45,7 +46,6 @@ export default function PostJobOffer() {
                 }),
             });
             const data = await response.json();
-            console.log("data: ", data)
         } catch (error) {
             console.log(error);
         }
@@ -54,6 +54,19 @@ export default function PostJobOffer() {
     const submitJobOfferForm = (event) => {
         event.preventDefault()
         postJobOffer()
+        for (let key in jobInput) {
+            setJobInput((state) => ({ ...state, [key]: "" }))
+        }
+    }
+
+    const experience = () => {
+        let number = numberWithCommas(jobInput.experience)
+        let sign = "";
+
+        if (number <= 1) { sign = "<" }
+        if (number >= 10) { sign = ">" }
+        if (number === "") { sign = "" }
+        return (" " + sign + " " + number)
     }
 
     return (
@@ -64,8 +77,6 @@ export default function PostJobOffer() {
                     <span class="input-group-text">Title</span>
                     <input type="text" name="title" value={jobInput.title} onChange={handleInputChange} class="form-control" />
 
-                    {/* </div> */}
-                    {/* <div class="input-group mb-3"> */}
                     <span class="input-group-text" >Type</span>
                     <select name="type" value={jobInput.type} onChange={handleInputChange} class="form-select">
                         <option>Open this select menu</option>
@@ -92,7 +103,7 @@ export default function PostJobOffer() {
                     <div className="range">
                         <label class="form-label">
                             <input type="range" min="1" max="10" name="experience" value={jobInput.experience} onChange={handleInputChange} class="form-range input-range" />
-                            <span>{numberWithCommas(jobInput.experience)}</span>
+                            <span>{experience()}</span>
                         </label>
                     </div>
                     {/* </div>
@@ -100,7 +111,7 @@ export default function PostJobOffer() {
                     <span class="input-group-text range">Salary:</span>
                     <div className="range">
                         <label class="form-label">
-                            <input type="range" name="salary" min="14000" max="200000" value={jobInput.salary} onChange={handleInputChange} class="form-range input-range" />
+                            <input type="range" name="salary" min="14000" max="200000" step="1000" value={jobInput.salary} onChange={handleInputChange} class="form-range input-range" id="salary-range" />
                             <span>{numberWithCommas(jobInput.salary)}</span>
                         </label>
                     </div>

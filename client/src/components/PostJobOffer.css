@@ -1,6 +1,14 @@
 .range {
-  margin-right: 5%;
+  margin-right: 4%;
 }
 .input-range {
   width: 220px;
+}
+
+#salary-range {
+  width: 300px;
+}
+
+textarea {
+  resize: none;
 }
