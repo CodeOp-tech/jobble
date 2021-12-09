@@ -6,6 +6,29 @@ function JobList(props) {
     const auth = useAuth();
     const navigate = useNavigate();
 
+    const matchJobOffer = async (status, id) => {
+        try {
+            const response = await fetch("/matches", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: "Bearer " + localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                    JobId: id,
+                    state: status,
+                }),
+            })
+            const job = await response.json()
+            console.log(job)
+            // setCurrentJob(job)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    };
+
+
     const handleClick = (id) => {
         if(!auth.isLoggedIn) {
         navigate("/login");
@@ -13,6 +36,15 @@ function JobList(props) {
           navigate(`/user/dashboard/${id}`)  
         }
     }
+    const handleApplyClick = async (id) => {
+        if(!auth.isLoggedIn) {
+        navigate("/login");
+        } else {
+          await matchJobOffer("accepted", id);  
+          navigate("/user/profile")  
+        }
+    }
+
 
     
     return (
@@ -28,9 +60,9 @@ function JobList(props) {
                         <p className="card-text">Salary: {job.salary}</p>
                         <div className="row">
                             <div className="col">
-                                <a href="#" className="btn btn-primary">
+                                <button type="button" className="btn btn-primary" onClick={()=>handleApplyClick(job.id)}>
                                 Apply!
-                                </a>
+                                </button>
                             </div>
                             <div className="col">
                                 <button type="button" className="btn btn-primary" onClick={()=>handleClick(job.id)}>
